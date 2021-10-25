@@ -13,24 +13,6 @@ export default class Login extends Component {
         }
     }
 
-    handleLogin() {
-        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then( response => {
-            console.log(response);
-            alert("Usuario loggeado!");
-            this.setState({
-                loggedIn: true
-            })
-        })
-        .catch( response => {
-            console.log(response);
-            alert("Error en el loggeo");
-            this.setState({
-                error: "Error en loggeo"
-            })
-        })
-    }
-
     render() {
         console.log(this.state.loggedIn);
         return (

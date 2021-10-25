@@ -52,7 +52,19 @@ export default class Menu extends Component{
             })
         })
     }
-AAA
+    handleLogout(){
+        auth.signOut()
+        .then(()=> {
+            this.setState({
+                loggedIn: false
+            })
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
+
     render(){
         const Drawer = createDrawerNavigator();
     
@@ -60,7 +72,9 @@ AAA
             <NavigationContainer>
                     <Drawer.Navigator initialRouteName="Login">
                         {this.state.loggedIn === true ? 
-                        <Drawer.Screen name = "Home" component={Home}></Drawer.Screen>
+                        <Drawer.Screen name = "Home">
+                            {props => <Home {...props} handleLogout={()=>this.handleLogout()}/>}
+                        </Drawer.Screen>
                         :
                         <>
                             <Drawer.Screen name="Login">
@@ -72,7 +86,9 @@ AAA
                         </>
                     }
                     </Drawer.Navigator>
-                </NavigationContainer>
-            )
-        }
+            </NavigationContainer>
+        )
+    }
+
+
 }
