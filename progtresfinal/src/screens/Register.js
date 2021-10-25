@@ -8,17 +8,30 @@ export default class Register extends Component {
         this.state = {
             email: "",
             password: "",
-            loggedIn: false,
-            error: ""
+            username: ""
         }
     }
 
+    handleRegister(){
+        if (this.state.email !== "" && this.state.password !== "" && this.state.username !== ""){
+            this.props.handleRegister(this.state.email, this.state.password, this.state.username)
+        }
+        else {
+            console.log("Completar los campos!")
+        }
+    }
 
     render() {
-        console.log(this.state.loggedIn);
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Registro</Text>
+                <TextInput
+                    style={styles.field}
+                    keyboardType="default"
+                    placeholder="username"
+                    
+                    onChangeText={text => this.setState({ username: text })}
+                />
                 <TextInput
                     style={styles.field}
                     keyboardType="email-address"
@@ -61,4 +74,3 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 })
-

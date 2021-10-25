@@ -5,6 +5,7 @@ import Login from './Login';
 import Register from './Register';
 import Home from './Home';
 import { auth } from '../firebase/config';
+import CreatePost from './CreatePost';
 
 export default class Menu extends Component{
     constructor(props){
@@ -15,6 +16,17 @@ export default class Menu extends Component{
         }
     }
 
+    componentDidMount(){
+        //Recordar la sesión iniciada
+        auth.onAuthStateChanged( user => {
+            if (user) {
+                this.setState({
+                    loggedIn: true
+                })
+            }
+        })
+    }
+    
     
     handleLogin(email, password){
         auth.signInWithEmailAndPassword(email, password)
@@ -33,13 +45,16 @@ export default class Menu extends Component{
             })
         })
     }
-
-    handleRegister(email, password) {
+    
+    handleRegister(email, password, username) {
         //alert(`REGISTRO: usuario: ${this.state.email}, password: ${this.state.password}`)
         auth.createUserWithEmailAndPassword(email, password)
         .then( response => {
             console.log(response);
             alert("Usuario registrado!");
+            response.user.updateProfile({
+                displayName: username
+            })
             this.setState({
                 loggedIn: true
             })
@@ -52,6 +67,7 @@ export default class Menu extends Component{
             })
         })
     }
+
     handleLogout(){
         auth.signOut()
         .then(()=> {
@@ -64,7 +80,6 @@ export default class Menu extends Component{
         })
     }
 
-
     render(){
         const Drawer = createDrawerNavigator();
     
@@ -72,23 +87,26 @@ export default class Menu extends Component{
             <NavigationContainer>
                     <Drawer.Navigator initialRouteName="Login">
                         {this.state.loggedIn === true ? 
-                        <Drawer.Screen name = "Home">
-                            {props => <Home {...props} handleLogout={()=>this.handleLogout()}/>}
-                        </Drawer.Screen>
+                        <>
+                            <Drawer.Screen name = "Home">
+                                {props => <Home {...props} handleLogout={()=>this.handleLogout()}/>}
+                            </Drawer.Screen>
+                            <Drawer.Screen name = "CreatePost">
+                                {props => <CreatePost {...props}/>}
+                            </Drawer.Screen>
+                        </>
                         :
                         <>
                             <Drawer.Screen name="Login">
                                 {props => <Login {...props} handleLogin={(email, password)=>this.handleLogin(email, password)}/>}
                             </Drawer.Screen>
                             <Drawer.Screen name = "Registro">
-                                {props => <Register {...props} handleRegister={(email, password)=>this.handleRegister(email, password)}/>}
+                                {props => <Register {...props} handleRegister={(email, password, username)=>this.handleRegister(email, password, username)}/>}
                             </Drawer.Screen>
                         </>
                     }
                     </Drawer.Navigator>
-            </NavigationContainer>
-        )
-    }
-
-
+                </NavigationContainer>
+            )
+        }
 }
