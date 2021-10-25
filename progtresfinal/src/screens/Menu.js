@@ -52,7 +52,7 @@ export default class Menu extends Component{
             })
         })
     }
-
+AAA
     render(){
         const Drawer = createDrawerNavigator();
     
