@@ -11,9 +11,17 @@ export default class Post extends Component {
         }
     }
 
-    /*componentDidMount(){
-        if this.props.item.data.likes si hay actualizar estado 
-    }*/
+    componentDidMount(){
+        if (this.props.item.data.likes != []){
+
+        } si hay actualizar estado 
+    }
+
+    likear(){
+        if (liked == false) {
+            
+        }
+    }
 
     render(){
         
@@ -23,8 +31,8 @@ export default class Post extends Component {
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{this.props.item.data.createdAt}</Text>
                 <Text>{this.props.item.data.owner}</Text>
-                <Text></Text>
-            <TouchableOpacity> funcion likear (si no esta likeado pushea al array de likes utilizando el metodo de firebase, si esta likeado borra el like)</TouchableOpacity>
+                <Text>funcion likear (si no esta likeado pushea al array de likes utilizando el metodo de firebase, si esta likeado borra el like)</Text>
+                <TouchableOpacity onPress={() => this.likear()}> </TouchableOpacity>
             </View>
             
         )
