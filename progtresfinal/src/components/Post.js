@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, Modal } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
@@ -79,6 +79,9 @@ export default class Post extends Component {
                 </Text>
                 </TouchableOpacity>
                 }
+                <Modal>
+
+                </Modal>
             </View>
             
         )
