@@ -15,7 +15,7 @@ export default class Menu extends Component{
             error: null,
         }
     }
-
+    //metodo para que recuerde al usuario cada vez que se recarga la pagina
     componentDidMount(){
         //Recordar la sesión iniciada
         auth.onAuthStateChanged( user => {
@@ -29,8 +29,8 @@ export default class Menu extends Component{
     
     
     handleLogin(email, password){
-        auth.signInWithEmailAndPassword(email, password)
-        .then( response => {
+        auth.signInWithEmailAndPassword(email, password) //usamos el metodo de auth
+        .then( response => { //esto es una promesa. necesita el .then y el .catch
             console.log(response);
             alert("Usuario loggeado!");
             this.setState({
@@ -52,11 +52,11 @@ export default class Menu extends Component{
         .then( response => {
             console.log(response);
             alert("Usuario registrado!");
-            response.user.updateProfile({
-                displayName: username
+            response.user.updateProfile({ //con update profile le agregamos un username al displayname, una propiedad propia de user de firebase
+                displayName: username //username que recibe por parametro desde el componente register
             })
             this.setState({
-                loggedIn: true
+                loggedIn: true //creamos el usuario, queda la sesion iniciada
             })
         })
         .catch( error => {
@@ -86,7 +86,7 @@ export default class Menu extends Component{
         return(
             <NavigationContainer>
                     <Drawer.Navigator initialRouteName="Login">
-                        {this.state.loggedIn === true ? 
+                        {this.state.loggedIn === true ? //preguntamos si estamos logeados
                         <>
                             <Drawer.Screen name = "Home">
                                 {props => <Home {...props} handleLogout={()=>this.handleLogout()}/>}
@@ -101,9 +101,10 @@ export default class Menu extends Component{
                                 {props => <Login {...props} handleLogin={(email, password)=>this.handleLogin(email, password)}/>}
                             </Drawer.Screen>
                             <Drawer.Screen name = "Registro">
-                                {props => <Register {...props} handleRegister={(email, password, username)=>this.handleRegister(email, password, username)}/>}
-                            </Drawer.Screen>
-                        </>
+                                {props => <Register {...props} handleRegister={(email, password, username)=>this.handleRegister(email, password, username)} 
+                                error={this.state.error}/>}
+                            </Drawer.Screen> 
+                        </> //register recibe una serie de propiedades. {...props} sirve para pasar navigation y route. handleRegister es la prop que se va a llamar dentro de register. Le estamos pasamos la funcion. Repetimos los parametros porque sino la funcion no recibe los parametros.
                     }
                     </Drawer.Navigator>
                 </NavigationContainer>

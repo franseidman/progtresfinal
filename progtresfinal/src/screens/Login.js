@@ -21,7 +21,7 @@ export default class Login extends Component {
                     style={styles.field}
                     keyboardType="email-address"
                     placeholder="email"
-                    onChangeText={text => this.setState({ email: text })}
+                    onChangeText={text => this.setState({ email: text })} //actualiza el estado a medida que se va cambiando el input.
                 />
                 <TextInput
                     style={styles.field}
@@ -32,8 +32,8 @@ export default class Login extends Component {
                 />
                 <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogin(this.state.email, this.state.password)}>
                     <Text style = {styles.text}> Login </Text>
-                </TouchableOpacity>
-            </View>
+                </TouchableOpacity> 
+            </View> //falta validacion de lo ultimo
         )
     }
 }

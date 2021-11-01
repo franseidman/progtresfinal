@@ -5,7 +5,7 @@ import firebase from "firebase"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+const firebaseConfig = { 
   apiKey: "AIzaSyBajNrp42DyXJnJBJfIXhl5Wx78HkQpgV0",
   authDomain: "rn-udesa-68cff.firebaseapp.com",
   projectId: "rn-udesa-68cff",
@@ -17,6 +17,6 @@ const firebaseConfig = {
 // Initialize Firebase
 app.initializeApp(firebaseConfig)
 
-export const auth=firebase.auth()
-export const storage=app.storage()
+export const auth=firebase.auth() //autenticar
+export const storage=app.storage() //guardar fotos
 export const db=app.firestore()

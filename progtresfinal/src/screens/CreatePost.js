@@ -11,20 +11,22 @@ export default class CreatePost extends Component {
     }
 
     handlePost(){
-        db.collection('posts').add({
-            owner: auth.currentUser.displayName,
+        db.collection('posts').add({ //db es database. viene de la configuracion. agarramos la coleccion post y le agregamos un nuevo documento con estos datos. es una promesa
+            owner: auth.currentUser.displayName, //displayName es para el username
             description: this.state.comment,
-            createdAt: Date.now(),
-            likes: []
+            email: auth.currentUser.email,
+            createdAt: Date.now(), //lo devuelve en milisegundos desde el posteo hasta la actualidad
+            likes: [],
+            comments: []
         })
         .then(response => {
             console.log(response);
             alert("Posteo realizado!");
             this.setState({
-                comment: ""
+                comment: "" //lo seteamos vacio pq sino queda con el texto que le habiamos ingresado antes
             })
             console.log(this.props);
-            this.props.navigation.navigate('Home');
+            this.props.navigation.navigate('Home'); //queremos navegar en el home automaticamente
         })
         .catch(error => {
             console.log(error);
@@ -40,15 +42,15 @@ export default class CreatePost extends Component {
                     style={styles.field}
                     keyboardType='default'
                     placeholder="What are you thinking?"
-                    multiline={true}
-                    numberOfLines = {4}
+                    multiline={true} // para poder hacer un comentario mas grande
+                    numberOfLines = {4} 
                     onChangeText={text => this.setState({ comment: text })}
-                    value = {this.state.comment}
+                    value = {this.state.comment} //para limpiar el comentario
                 />
                 <TouchableOpacity style = {styles.button} onPress={() => this.handlePost()}>
                     <Text style = {styles.text}> Post </Text>
                 </TouchableOpacity>
-            </View>
+            </View> //generamos el posteo
         )
     }
 }

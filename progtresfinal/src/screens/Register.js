@@ -12,7 +12,7 @@ export default class Register extends Component {
         }
     }
 
-    handleRegister(){
+    onRegister(){
         if (this.state.email !== "" && this.state.password !== "" && this.state.username !== ""){
             this.props.handleRegister(this.state.email, this.state.password, this.state.username)
         }
@@ -29,7 +29,6 @@ export default class Register extends Component {
                     style={styles.field}
                     keyboardType="default"
                     placeholder="username"
-                    
                     onChangeText={text => this.setState({ username: text })}
                 />
                 <TextInput
@@ -42,13 +41,19 @@ export default class Register extends Component {
                     style={styles.field}
                     keyboardType='default'
                     placeholder="password"
-                    secureTextEntry={true}
+                    secureTextEntry={true} //para que se muestren los *
                     onChangeText={text => this.setState({ password: text })}
                 />
-                <TouchableOpacity style = {styles.button} onPress={() => this.handleRegister()}>
-                    <Text style = {styles.text}> Sign Up </Text>
-                </TouchableOpacity>
-            </View>
+                
+                {this.props.error ? <Text>{this.props.error.message}</Text>
+                :
+                null   
+                }
+
+                <TouchableOpacity style = {styles.button} onPress={() => this.onRegister()}>
+                    <Text style = {styles.text}> Sign Up </Text> 
+                </TouchableOpacity> 
+            </View> //primero linea 15 y si esta todo bien se ejecuta la funcion que se paso por props
         )
     }
 }

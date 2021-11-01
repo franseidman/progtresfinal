@@ -11,13 +11,13 @@ export default class Home extends Component {
         }
     }
     componentDidMount(){
-        db.collection('posts').orderBy("createdAt", "desc").onSnapshot(
+        db.collection('posts').orderBy("createdAt", "desc").onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
             docs => {
                 let postsAux = [] //Variable auxiliar
                 docs.forEach( doc => {
                     postsAux.push({
                         id: doc.id,
-                        data: doc.data()
+                        data: doc.data() //data extrae todos los datos de ese documento. por cada uno de los posteos
                     })
                 })
                 this.setState({
@@ -34,13 +34,13 @@ export default class Home extends Component {
                 <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
                     <Text style = {styles.text}> Logout </Text>
                 </TouchableOpacity>
-                <FlatList
+                <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
                 data = {this.state.posts}
-                keyExtractor = {post => post.id.toString()}
-                renderItem = { ({item}) => 
-                    <Post item = {item}></Post> } //Datos de los posteos
-                />
-            </View>
+                keyExtractor = {post => post.id.toString()} //identificador unico.
+                renderItem = { ({item}) => {return <Post item = {item}></Post> } //Datos de los posteos. Los pasamos por props
+                }
+                /> 
+            </View> //por cada posteo que encuentre devuelve un componente que se llame post que recibe las props de ese item
         )
     }
 }
