@@ -28,6 +28,18 @@ export default class Post extends Component {
         }
     }
 
+    onComment(){
+        const posteoActualizar = db.collection("posts").doc(this.props.item.id)// Esta línea se mantiene igual, no?
+        posteoActualizar.update({ 
+            comments: firebase.firestore.FieldValue.arrayUnion({user: auth.currentUser.email, comment: this.props.item.descreiption, fecha: this.props.item.createdAt}) 
+        })
+        .then(()=> {
+            this.setState({
+                //Ver bien que va acá adentro
+            })
+        })
+    }
+
     // funcion likear (si no esta likeado pushea al array de likes utilizando el metodo de firebase)
     onLike(){ 
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)
@@ -41,7 +53,8 @@ export default class Post extends Component {
             })
         })
     }
-
+    //Obtenemos el posteo, este se actualiza para luego sumar el like. ArrayUnion 
+    //Commnets guardar obj. lit. (Mismo procedimiento)
     onDisLike(){
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)
         posteoActualizar.update({ 
@@ -59,6 +72,7 @@ export default class Post extends Component {
         
         console.log(this.props.item);
         return(
+            
             <View>
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{this.props.item.data.createdAt}</Text>
