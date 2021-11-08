@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Modal } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, TextInput, Image, StyleSheet, Modal } from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -9,12 +9,19 @@ export default class Post extends Component {
         super(props);
         this.state = {
             likes: 0,
-            liked: false
+            liked: false,
+            comments:[],
+            comment:""
         }
     }
 
     componentDidMount(){
             if (this.props.item){
+                if(this.props.item.data.comments){
+                    this.setState({
+                        comments: this.props.item.data.comments
+                    })
+                }
                 if(this.props.item.data.likes.length !== 0){
                 this.setState({ 
                     likes: this.props.item.data.likes.length
@@ -30,12 +37,15 @@ export default class Post extends Component {
 
     onComment(){
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)// Esta línea se mantiene igual, no?
+        const comment={user: auth.currentUser.email, comment: this.state.comment, fecha: Date.now()}
+        console.log(comment)
         posteoActualizar.update({ 
-            comments: firebase.firestore.FieldValue.arrayUnion({user: auth.currentUser.email, comment: this.props.item.descreiption, fecha: this.props.item.createdAt}) 
+            comments: firebase.firestore.FieldValue.arrayUnion(comment)
         })
         .then(()=> {
             this.setState({
-                //Ver bien que va acá adentro
+                comments: this.state.comments.push(comment),
+                comment:""
             })
         })
     }
@@ -68,16 +78,50 @@ export default class Post extends Component {
         })
     }
 
+    showModal(){
+        console.log('Mostrando modal')
+        this.setState({
+            showModal: true,
+        })
+    }
+    
+    //Cierra el modal
+    closeModal(){
+        console.log('Cerrando modal')
+        this.setState({
+            showModal: false,
+        })
+    }
+
+
     render(){
         
         console.log(this.props.item);
         return(
-            
+            //FlatList para hacer ver comments o no ver comments. Y hacer hace cuanto se subió.
             <View>
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{this.props.item.data.createdAt}</Text>
                 <Text>{this.props.item.data.owner}</Text>
+                <Modal>
+                    <FlatList>{this.state.comments}
+                    </FlatList>
+                    <TextInput
+                    style={styles.field}
+                    keyboardType='default'
+                    placeholder="Comentar..."
+                    multiline={true} // para poder hacer un comentario mas grande
+                    numberOfLines = {4}
+                    onChangeText={text => this.setState({ comment: text })}//para ir actualizando el estado del comment
+                    value = {this.state.comment} //para limpiar el comentario
+                />
+                <TouchableOpacity style = {styles.button} onPress={() => this.onComment()}>
+                    <Text style = {styles.text}> Comentar </Text>
+                </TouchableOpacity>
+                </Modal>
+
                 <Text>Likes: {this.state.likes}</Text>
+                
                 
                 {
                     !this.state.liked ? // el ! es para decir si no esta likeado, podes likear y si esta likeado podes deslikear
@@ -106,5 +150,31 @@ const styles = StyleSheet.create({
     image: {
         height: 200,
     
+    },
+    container:{
+        flex: 1,
+        justifyContent: 'center',
+        padding: 5,
+    },
+    
+    closeModal:{
+        alignSelf: 'flex-end',
+        padding: 10,
+        backgroundColor: '#dc3545',
+        marginTop:2,
+        marginBotom: 10,
+        borderRadius: 4,
+    },
+
+    modalText:{
+        fontWeight: 'bold',
+        color:'#fff',
+    },
+    modalView:{
+        backgroundColor: 'green',
+        borderRadius: 10,
+    },
+    modal: {
+        border: 'none',
     }
 })
