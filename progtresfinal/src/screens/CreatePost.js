@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import { Text, TextInput, TouchableOpacity, View, StyleSheet} from 'react-native';
+import MyCamera from '../components/MyCamera';
 import { auth, db } from '../firebase/config';
 
 export default class CreatePost extends Component {
     constructor(props){
         super(props);
         this.state = {
-            comment: ""
+            comment: "",
+            photo: '',
+            showCamera: true
         }
     }
 
@@ -17,7 +20,8 @@ export default class CreatePost extends Component {
             email: auth.currentUser.email,
             createdAt: Date.now(), //lo devuelve en milisegundos desde el posteo hasta la actualidad
             likes: [],
-            comments: []
+            comments: [],
+            photo: this.state.photo
         })
         .then(response => {
             console.log(response);
@@ -33,11 +37,27 @@ export default class CreatePost extends Component {
             alert("Hubo un error");
         })
     }
+
+    guardarFoto(url){
+        this.setState({
+            photo: url,
+            showCamera: false,
+        })
+    }
     
     render(){
         
         return(
+            <>
+            {this.state.showCamera ? 
+            <MyCamera savePhoto = {(url)=>this.guardarFoto(url)}/>
+            :
+            <>
             <View style={styles.container}>
+                <Image
+                    source ={{uri: this.state.photo}}
+                    style = {styles.imagen}
+                />
                 <TextInput
                     style={styles.field}
                     keyboardType='default'
@@ -51,6 +71,9 @@ export default class CreatePost extends Component {
                     <Text style = {styles.text}> Post </Text>
                 </TouchableOpacity>
             </View> //generamos el posteo
+            </>
+            }
+            </>
         )
     }
 }
@@ -74,5 +97,9 @@ const styles = StyleSheet.create({
     text: {
         color: '#FFA400',
         fontSize: 20
+    },
+    imagen: {
+        height: 300,
+        width: '90%'
     }
 })
