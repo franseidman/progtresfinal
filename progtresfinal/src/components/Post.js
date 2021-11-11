@@ -103,26 +103,7 @@ export default class Post extends Component {
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{this.props.item.data.createdAt}</Text>
                 <Text>{this.props.item.data.owner}</Text>
-                <Modal>
-                    <FlatList>{this.state.comments}
-                    </FlatList>
-                    <TextInput
-                    style={styles.field}
-                    keyboardType='default'
-                    placeholder="Comentar..."
-                    multiline={true} // para poder hacer un comentario mas grande
-                    numberOfLines = {4}
-                    onChangeText={text => this.setState({ comment: text })}//para ir actualizando el estado del comment
-                    value = {this.state.comment} //para limpiar el comentario
-                />
-                <TouchableOpacity style = {styles.button} onPress={() => this.onComment()}>
-                    <Text style = {styles.text}> Comentar </Text>
-                </TouchableOpacity>
-                </Modal>
-
                 <Text>Likes: {this.state.likes}</Text>
-                
-                
                 {
                     !this.state.liked ? // el ! es para decir si no esta likeado, podes likear y si esta likeado podes deslikear
                 <TouchableOpacity onPress={() => this.onLike()}>  
@@ -137,9 +118,50 @@ export default class Post extends Component {
                 </Text>
                 </TouchableOpacity>
                 }
-                <Modal>
+                <TouchableOpacity onPress={()=>{this.showModal()}}>
+                    <Text style={styles.color}>
+                        Ver comentarios
+                    </Text>
+                </TouchableOpacity>
+                {
+                    this.state.showModal ?
 
-                </Modal>
+                        <Modal 
+                        animationType = "fade"
+                        transparent = {false}
+                        visible = {this.state.showModal}
+                        style = {styles.modal}
+                        >
+                            <View style={styles.modalView}>
+                                {/* Botón de cierre del modal */}
+                                <TouchableOpacity style={styles.closeModal} onPress={()=>{this.closeModal()}}>
+                                        <Text style={styles.modalText} >X</Text>
+                                </TouchableOpacity>
+                                <Text>
+                                <FlatList 
+                                data={this.state.comments}
+                                keyExtractor = {comment => comment.fecha.toString()} //deberia ser id
+                                renderItem = { ({item}) => <Text>{item.comment}</Text> } //mostrar el username del comment
+                                /> 
+                                </Text>
+                                <TextInput
+                                style={styles.field}
+                                keyboardType='default'
+                                placeholder="Comentar..."
+                                multiline={true} // para poder hacer un comentario mas grande
+                                numberOfLines = {4}
+                                onChangeText={text => this.setState({ comment: text })}//para ir actualizando el estado del comment
+                                value = {this.state.comment} //para limpiar el comentario
+                                />
+                                <TouchableOpacity style = {styles.button} onPress={() => this.onComment()}>
+                                    <Text style = {styles.text}> Comentar </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </Modal>
+                        :
+                        null
+                }
             </View>
             
         )
@@ -176,5 +198,9 @@ const styles = StyleSheet.create({
     },
     modal: {
         border: 'none',
+    },
+    color: {
+        color: "blue",
     }
+
 })

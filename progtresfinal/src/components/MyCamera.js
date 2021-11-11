@@ -44,8 +44,6 @@ export default class MyCamera extends React.Component{
             const ref = storage.ref(`camera/${Date.now()}.jpg`)
             ref.put(image)
             .then(()=>{
-                console.log(ref.getDownloadURL);
-                
                 ref.getDownloadURL()
                 .then(url => {
                     console.log(url);
