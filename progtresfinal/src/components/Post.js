@@ -97,9 +97,15 @@ export default class Post extends Component {
     render(){
         
         console.log(this.props.item);
+    
         return(
             //FlatList para hacer ver comments o no ver comments. Y hacer hace cuanto se subió.
             <View>
+                <Image  
+                style={styles.preview}
+                source={{uri: this.props.item.data.photo}}
+                />
+                <Text>{this.props.item.data.photo}</Text>
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{this.props.item.data.createdAt}</Text>
                 <Text>{this.props.item.data.owner}</Text>
@@ -201,6 +207,10 @@ const styles = StyleSheet.create({
     },
     color: {
         color: "blue",
-    }
+    },
+    preview: {
+        width: 90,
+        height: 70
+    },
 
 })

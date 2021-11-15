@@ -12,6 +12,20 @@ export default class Profile extends Component {
     }
 
     componentDidMount(){
+        db.collection('posts').orderBy("createdAt", "desc").onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
+            docs => {
+                let postsAux = [] //Variable auxiliar
+                docs.forEach( doc => {
+                    postsAux.push({
+                        id: doc.id,
+                        data: doc.data() //data extrae todos los datos de ese documento. por cada uno de los posteos
+                    })
+                })
+                this.setState({
+                    posts: postsAux
+                })
+            }
+        )
     }
 
     render(){
