@@ -97,7 +97,7 @@ export default class Menu extends Component{
                                 {props => <CreatePost {...props}/>}
                             </Drawer.Screen>
                             <Drawer.Screen name = "Profile">
-                                {props => <Profile {...props}/>}
+                                {props => <Profile {...props} handleLogout={()=>this.handleLogout()}/>}
                             </Drawer.Screen>
                             <Drawer.Screen name = "SearchBar">
                                 {props => <SearchBar {...props}/>}
