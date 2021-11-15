@@ -7,12 +7,12 @@ export default class Profile extends Component {
     constructor(props){
         super(props);
         this.state = {
-
+            posts: []
         }
     }
 
     componentDidMount(){
-        db.collection('posts').orderBy("createdAt", "desc").onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
+        db.collection('posts').where("email","==", auth.currentUser.email).orderBy("createdAt", "desc").onSnapshot( //onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
             docs => {
                 let postsAux = [] //Variable auxiliar
                 docs.forEach( doc => {
@@ -29,11 +29,18 @@ export default class Profile extends Component {
     }
 
     render(){
-        console.log(auth.currentUser)
+        console.log(auth.currentUser.metadata)
         return(
             <View>
+                <Text> Fecha: {auth.currentUser.metadata.lastSignInTime}</Text>
                 <Text> Usuario: {auth.currentUser.displayName} </Text>
                 <Text> Email: {auth.currentUser.email} </Text>
+                <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
+                data = {this.state.posts}
+                keyExtractor = {post => post.id.toString()} //identificador unico.
+                renderItem = { ({item}) => {return <Post item = {item}></Post> } //Datos de los posteos. Los pasamos por props
+                }
+                />
                 <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
                     <Text style = {styles.text}> Logout </Text>
                 </TouchableOpacity>

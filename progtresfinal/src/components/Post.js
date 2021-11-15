@@ -44,7 +44,6 @@ export default class Post extends Component {
         })
         .then(()=> {
             this.setState({
-                comments: this.state.comments.push(comment),
                 comment:""
             })
         })
@@ -105,7 +104,6 @@ export default class Post extends Component {
                 style={styles.preview}
                 source={{uri: this.props.item.data.photo}}
                 />
-                <Text>{this.props.item.data.photo}</Text>
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{this.props.item.data.createdAt}</Text>
                 <Text>{this.props.item.data.owner}</Text>
@@ -145,9 +143,9 @@ export default class Post extends Component {
                                 </TouchableOpacity>
                                 <Text>
                                 <FlatList 
-                                data={this.state.comments}
-                                keyExtractor = {comment => comment.fecha.toString()} //deberia ser id
-                                renderItem = { ({item}) => <Text>{item.comment}</Text> } //mostrar el username del comment
+                                data={this.props.item.data.comments}//recibe un array por props que es lo que va a recorrer
+                                keyExtractor = {(comment, id) => id.toString()} // el primero es el elemento y el segundo es la posicion en el array (posicion ocupa)
+                                renderItem = { ({item}) => <Text>{item.comment} {item.fecha}</Text> } //renderizamos los comments
                                 /> 
                                 </Text>
                                 <TextInput
