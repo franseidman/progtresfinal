@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import Post from '../components/Post';
 import { db } from '../firebase/config';
 
-
-export default class Home extends Component {
+export default class SearchBar extends Component {
     constructor(props){
         super(props);
         this.state = {
-            posts: [],
+            posts:[],
+            search:"",
         }
     }
-    componentDidMount(){
-        db.collection('posts').orderBy("createdAt", "desc").onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
+
+
+    OnSearch(){
+        db.collection('posts').orderBy("createdAt", "desc").where("owner","==",this.state.search).onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
             docs => {
                 let postsAux = [] //Variable auxiliar
                 docs.forEach( doc => {
@@ -27,16 +30,15 @@ export default class Home extends Component {
             }
         )
     }
-
-
     render(){
-        console.log(this.state.posts);
         return(
             <View>
-                <Text> Home </Text>
-                <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
-                    <Text style = {styles.text}> Logout </Text>
-                </TouchableOpacity>
+                <TextInput
+                    style={styles.field}
+                    keyboardType='default'
+                    placeholder="Buscar..."
+                    onChangeText={text => this.setState({ search: text },this.OnSearch)}
+                    value = {this.state.search} />
                 <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
                 data = {this.state.posts}
                 keyExtractor = {post => post.id.toString()} //identificador unico.
@@ -47,7 +49,6 @@ export default class Home extends Component {
         )
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -7,6 +7,7 @@ import Home from './Home';
 import { auth } from '../firebase/config';
 import CreatePost from './CreatePost';
 import Profile from './Profile';
+import SearchBar from './SearchBar';
 
 export default class Menu extends Component{
     constructor(props){
@@ -97,6 +98,9 @@ export default class Menu extends Component{
                             </Drawer.Screen>
                             <Drawer.Screen name = "Profile">
                                 {props => <Profile {...props}/>}
+                            </Drawer.Screen>
+                            <Drawer.Screen name = "SearchBar">
+                                {props => <SearchBar {...props}/>}
                             </Drawer.Screen>
                         </>
                         :
