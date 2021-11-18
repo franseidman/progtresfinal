@@ -36,8 +36,12 @@ export default class Post extends Component {
     }
 
     onComment(){
-        const posteoActualizar = db.collection("posts").doc(this.props.item.id)// Esta línea se mantiene igual, no?
-        const comment={user: auth.currentUser.email, comment: this.state.comment, fecha: Date.now()}
+        //const timeElapsed = Date.now();
+        //const today = new Date(timeElapsed);
+        //today.toDateString()
+
+        const posteoActualizar = db.collection("posts").doc(this.props.item.id)
+        const comment={user: auth.currentUser.email, comment: this.state.comment, fecha: new Date()}
         console.log(comment)
         posteoActualizar.update({ 
             comments: firebase.firestore.FieldValue.arrayUnion(comment)
@@ -115,7 +119,7 @@ export default class Post extends Component {
                 source={{uri: this.props.item.data.photo}}
                 />
                 <Text>{this.props.item.data.description}</Text>
-                <Text>{this.props.item.data.createdAt}</Text>
+                <Text>{Math.ceil((Date.now() - this.props.item.data.createdAt)/1000/3600)} hours ago</Text>
                 <Text>{this.props.item.data.owner}</Text>
                 <Text>Likes: {this.state.likes}</Text>
                 {
