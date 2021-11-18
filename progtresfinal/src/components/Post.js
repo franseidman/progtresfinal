@@ -11,7 +11,7 @@ export default class Post extends Component {
             likes: 0,
             liked: false,
             comments:[],
-            comment:""
+            comment:"",
         }
     }
 
@@ -92,6 +92,16 @@ export default class Post extends Component {
         })
     }
 
+    
+    hayComentario(){
+        if(this.props.item.data.comments.length == 0){
+            return "Aun no hay comentarios"
+        } else {
+            return this.props.item.data.comments.length
+        } 
+    }
+            
+
 
     render(){
         
@@ -142,10 +152,11 @@ export default class Post extends Component {
                                         <Text style={styles.modalText} >X</Text>
                                 </TouchableOpacity>
                                 <Text>
+                                <Text>Cantidad de comentarios: {this.hayComentario()}</Text>
                                 <FlatList 
                                 data={this.props.item.data.comments}//recibe un array por props que es lo que va a recorrer
                                 keyExtractor = {(comment, id) => id.toString()} // el primero es el elemento y el segundo es la posicion en el array (posicion ocupa)
-                                renderItem = { ({item}) => <Text>{item.comment} {item.fecha}</Text> } //renderizamos los comments
+                                renderItem = { ({item}) => <Text>{item.comment} {item.fecha} {item.user}</Text> } //renderizamos los comments
                                 /> 
                                 </Text>
                                 <TextInput

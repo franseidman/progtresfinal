@@ -35,6 +35,7 @@ export default class Profile extends Component {
                 <Text> Fecha: {auth.currentUser.metadata.lastSignInTime}</Text>
                 <Text> Usuario: {auth.currentUser.displayName} </Text>
                 <Text> Email: {auth.currentUser.email} </Text>
+                <Text> Cantidad de posteos: {this.state.posts.length}</Text>
                 <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
                 data = {this.state.posts}
                 keyExtractor = {post => post.id.toString()} //identificador unico.
