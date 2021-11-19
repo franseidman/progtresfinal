@@ -31,7 +31,6 @@ export default class Profile extends Component {
     delete(id){
         const posteoActualizar = db.collection('posts').doc(id)
         posteoActualizar.delete()
-        posts = posts.filter(id) //filtramos por ID
     }
 
     render(){
@@ -48,8 +47,14 @@ export default class Profile extends Component {
                 keyExtractor = {post => post.id.toString()} //identificador unico.
                 renderItem = { ({item}) => 
                 <>
-                    <Post item = {item}
-                    delete ={(id)=>this.delete(id)}></Post>
+                    <Post item = {item}></Post>
+                {
+                    <TouchableOpacity onPress={() => this.delete(item.id)}>
+                        <Text>
+                            Borrar
+                        </Text>
+                    </TouchableOpacity>
+                }
                 </>    
                 }
                 />

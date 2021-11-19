@@ -118,16 +118,6 @@ export default class Post extends Component {
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{Math.ceil((Date.now() - this.props.item.data.createdAt)/1000/3600)} hours ago</Text>
                 <Text>{this.props.item.data.owner}</Text>
-                {
-                    this.props.item.data.email == auth.currentUser.email?
-                    <TouchableOpacity onPress={() => this.props.delete(this.props.item.id)}>
-                        <Text>
-                            Borrar
-                        </Text>
-                    </TouchableOpacity>
-                    :
-                    null
-                }
                 <Text>Likes: {this.state.likes}</Text>
                 {
                     !this.state.liked ? // el ! es para decir si no esta likeado, podes likear y si esta likeado podes deslikear
