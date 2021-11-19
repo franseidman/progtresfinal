@@ -16,7 +16,7 @@ export default class SearchBar extends Component {
 
     OnSearch(){
         this.setState({posts: []})
-        db.collection('posts').orderBy("createdAt", "desc").where("owner","==",this.state.search).onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
+        db.collection('posts').orderBy("createdAt", "desc").where("owner","=git=",this.state.search).onSnapshot( //orderBy para ordenarlo de menor a mayor (lo mas nuevo al principio). onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
             docs => {
                 let postsAux = [] //Variable auxiliar
                 docs.forEach( doc => {

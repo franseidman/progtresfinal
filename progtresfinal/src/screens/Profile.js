@@ -28,6 +28,12 @@ export default class Profile extends Component {
         )
     }
 
+    delete(id){
+        const posteoActualizar = db.collection('posts').doc(id)
+        posteoActualizar.delete()
+        posts = posts.filter(id) //filtramos por ID
+    }
+
     render(){
         console.log(auth.currentUser.metadata)
         return(
@@ -36,12 +42,18 @@ export default class Profile extends Component {
                 <Text> Usuario: {auth.currentUser.displayName} </Text>
                 <Text> Email: {auth.currentUser.email} </Text>
                 <Text> Cantidad de posteos: {this.state.posts.length}</Text>
+                
                 <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
                 data = {this.state.posts}
                 keyExtractor = {post => post.id.toString()} //identificador unico.
-                renderItem = { ({item}) => {return <Post item = {item}></Post> } //Datos de los posteos. Los pasamos por props
+                renderItem = { ({item}) => 
+                <>
+                    <Post item = {item}
+                    delete ={(id)=>this.delete(id)}></Post>
+                </>    
                 }
                 />
+
                 <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
                     <Text style = {styles.text}> Logout </Text>
                 </TouchableOpacity>

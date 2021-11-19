@@ -36,9 +36,6 @@ export default class Post extends Component {
     }
 
     onComment(){
-        //const timeElapsed = Date.now();
-        //const today = new Date(timeElapsed);
-        //today.toDateString()
 
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)
         const comment={user: auth.currentUser.email, comment: this.state.comment, fecha: new Date()}
@@ -109,7 +106,7 @@ export default class Post extends Component {
 
     render(){
         
-        console.log(this.props.item);
+        console.log("ola", this.props.item);
     
         return(
             //FlatList para hacer ver comments o no ver comments. Y hacer hace cuanto se subió.
@@ -121,6 +118,16 @@ export default class Post extends Component {
                 <Text>{this.props.item.data.description}</Text>
                 <Text>{Math.ceil((Date.now() - this.props.item.data.createdAt)/1000/3600)} hours ago</Text>
                 <Text>{this.props.item.data.owner}</Text>
+                {
+                    this.props.item.data.email == auth.currentUser.email?
+                    <TouchableOpacity onPress={() => this.props.delete(this.props.item.id)}>
+                        <Text>
+                            Borrar
+                        </Text>
+                    </TouchableOpacity>
+                    :
+                    null
+                }
                 <Text>Likes: {this.state.likes}</Text>
                 {
                     !this.state.liked ? // el ! es para decir si no esta likeado, podes likear y si esta likeado podes deslikear
