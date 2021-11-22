@@ -93,13 +93,13 @@ export default class Menu extends Component{
                             <Drawer.Screen name = "Home">
                                 {props => <Home {...props} handleLogout={()=>this.handleLogout()}/>}
                             </Drawer.Screen>
-                            <Drawer.Screen name = "CreatePost">
+                            <Drawer.Screen name = "Post">
                                 {props => <CreatePost {...props}/>}
                             </Drawer.Screen>
                             <Drawer.Screen name = "Profile">
                                 {props => <Profile {...props} handleLogout={()=>this.handleLogout()}/>}
                             </Drawer.Screen>
-                            <Drawer.Screen name = "SearchBar">
+                            <Drawer.Screen name = "Search">
                                 {props => <SearchBar {...props}/>}
                             </Drawer.Screen>
                         </>

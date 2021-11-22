@@ -62,9 +62,6 @@ export default class Profile extends Component {
                 }
                 />
 
-                <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
-                    <Text style = {styles.text}> Logout </Text>
-                </TouchableOpacity>
             </View>
         )
     }

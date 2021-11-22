@@ -24,7 +24,7 @@ export default class Register extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Registro</Text>
+                <Text style={styles.text}>Enter your email, pick a funny username and establish your password to sign up</Text>
                 <TextInput
                     style={styles.field}
                     keyboardType="default"
@@ -51,7 +51,7 @@ export default class Register extends Component {
                 }
 
                 <TouchableOpacity style = {styles.button} onPress={() => this.onRegister()}>
-                    <Text style = {styles.text}> Sign Up </Text> 
+                    <Text style = {styles.text}>Register</Text> 
                 </TouchableOpacity> 
             </View> //primero linea 15 y si esta todo bien se ejecuta la funcion que se paso por props
         )
@@ -61,21 +61,26 @@ export default class Register extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor:"#FFFFD0"
     },
     field: {
-        width: '80%',
-        backgroundColor: "#09009B",
+        width: '40%',
+        backgroundColor: "#E5E5E5",
+        borderRadius:"4px",
         color: '#FFA400',
         padding: 10,
         marginVertical: 10
     },
     button: {
-        width: '30%',
-        backgroundColor: "#0F00FF",
+        width: '8%',
+        height:"32px",
+        backgroundColor: "#E5E5E5",
+        borderRadius:"4px"
     },
     text: {
         color: '#FFA400',
-        fontSize: 20
+        fontSize: 20,
+        alignSelf:"center"
     }
 })

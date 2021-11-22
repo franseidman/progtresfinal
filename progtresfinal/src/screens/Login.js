@@ -16,7 +16,7 @@ export default class Login extends Component {
         console.log(this.state.loggedIn);
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Login</Text>
+                <Text style={styles.text}>Enter your email and password to login</Text>
                 <TextInput
                     style={styles.field}
                     keyboardType="email-address"
@@ -41,21 +41,26 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor:"#FFFFD0"
     },
     field: {
-        width: '80%',
-        backgroundColor: "#09009B",
+        width: '40%',
+        backgroundColor: "#E5E5E5",
         color: '#FFA400',
         padding: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        borderRadius:"4px"
     },
     button: {
-        width: '30%',
-        backgroundColor: "#0F00FF",
+        width: '8%',
+        height:"32px",
+        backgroundColor: "#E5E5E5",
+        borderRadius:"4px"
     },
     text: {
         color: '#FFA400',
-        fontSize: 20
+        fontSize: 20,
+        alignSelf:"center"
     }
 })
