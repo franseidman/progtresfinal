@@ -36,11 +36,14 @@ export default class Profile extends Component {
     render(){
         console.log(auth.currentUser.metadata)
         return(
-            <View>
-                <Text> Fecha: {auth.currentUser.metadata.lastSignInTime}</Text>
-                <Text> Usuario: {auth.currentUser.displayName} </Text>
-                <Text> Email: {auth.currentUser.email} </Text>
-                <Text> Cantidad de posteos: {this.state.posts.length}</Text>
+            <View style={styles.view}>
+                <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
+                    <Text style = {styles.text}> Logout </Text>
+                </TouchableOpacity>
+                <Text style={styles.username}>{auth.currentUser.displayName} </Text>
+                <Text style={styles.detail}> Since: {auth.currentUser.metadata.lastSignInTime}</Text>
+                <Text style={styles.detail}>{auth.currentUser.email} </Text>
+                <Text style={styles.detail}>{this.state.posts.length} posts</Text>
                 
                 <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
                 data = {this.state.posts}
@@ -72,8 +75,27 @@ const styles = StyleSheet.create({
         width: '30%',
         backgroundColor: "#0F00FF",
     },
+    view:{
+        backgroundColor: "#FFFFD0",
+    },
     text: {
         color: '#FFA400',
         fontSize: 20
+    },
+    username:{
+        fontSize:"80px",
+        alignSelf:"center"
+    },
+    button: {
+        alignSelf: "flex-end",
+        width: '7%',
+        backgroundColor: "#FFFFD0",
+        marginRight: "30px",
+        height: "40px",
+        marginTop:"5px"
+    },
+    detail:{
+        fontSize:"15px",
+        alignSelf:"center"
     }
 })

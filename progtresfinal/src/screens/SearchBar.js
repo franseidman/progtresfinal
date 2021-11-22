@@ -33,7 +33,7 @@ export default class SearchBar extends Component {
     }
     render(){
         return(
-            <View>
+            <View style={styles.view}>
                 <TextInput
                     style={styles.field}
                     keyboardType='default'
@@ -41,6 +41,7 @@ export default class SearchBar extends Component {
                     onChangeText={text => this.setState({ search: text },this.OnSearch)}
                     value = {this.state.search} />
                 <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
+                style={styles.view}
                 data = {this.state.posts}
                 keyExtractor = {post => post.id.toString()} //identificador unico.
                 renderItem = { ({item}) => {return <Post item = {item}></Post> } //Datos de los posteos. Los pasamos por props
@@ -56,11 +57,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     field: {
-        width: '80%',
-        backgroundColor: "#09009B",
+        width: '50%',
+        backgroundColor: "#F4F4F4",
         color: '#FFA400',
         padding: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        alignSelf:"center"
     },
     button: {
         width: '30%',
@@ -69,5 +71,8 @@ const styles = StyleSheet.create({
     text: {
         color: '#FFA400',
         fontSize: 20
+    },
+    view:{
+        backgroundColor: "#FFFFD0",
     }
 })

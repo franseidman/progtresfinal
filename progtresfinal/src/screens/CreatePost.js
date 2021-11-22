@@ -70,7 +70,7 @@ export default class CreatePost extends Component {
                 <TouchableOpacity style = {styles.button} onPress={() => this.handlePost()}>
                     <Text style = {styles.text}> Post </Text>
                 </TouchableOpacity>
-            </View> //generamos el posteo
+            </View>
             </>
             }
             </>
@@ -81,25 +81,30 @@ export default class CreatePost extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: "#FFFFD0",
     },
     field: {
-        width: '80%',
-        backgroundColor: "#09009B",
+        width: '60%',
+        backgroundColor: "#F4F4F4",
         color: '#FFA400',
         padding: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        borderRadius:"10px",
     },
     button: {
-        width: '30%',
-        backgroundColor: "#0F00FF",
+        width: '10%',
+        backgroundColor: "#F4F4F4",
+        alignSelf:"center",
+        borderRadius:"10px"
     },
     text: {
         color: '#FFA400',
-        fontSize: 20
+        fontSize: 20,
+        alignSelf:"center"
     },
     imagen: {
         height: 300,
-        width: '90%'
+        width: '30%'
     }
 })

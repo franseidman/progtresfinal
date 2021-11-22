@@ -3,6 +3,7 @@ import { View, Text, TextInput, Image, StyleSheet, Modal } from 'react-native'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
+import { color } from 'react-native-reanimated';
 
 export default class Post extends Component {
     constructor(props){
@@ -110,32 +111,32 @@ export default class Post extends Component {
     
         return(
             //FlatList para hacer ver comments o no ver comments. Y hacer hace cuanto se subió.
-            <View>
+            <View style={styles.view}>
                 <Image  
                 style={styles.preview}
                 source={{uri: this.props.item.data.photo}}
                 />
-                <Text>{this.props.item.data.description}</Text>
-                <Text>{Math.ceil((Date.now() - this.props.item.data.createdAt)/1000/3600)} hours ago</Text>
-                <Text>{this.props.item.data.owner}</Text>
-                <Text>Likes: {this.state.likes}</Text>
+                <Text style={styles.datosowner}>by: {this.props.item.data.owner}</Text>
+                <Text style={styles.likes}>{this.state.likes} likes</Text>
+                <Text style={styles.datos}>{this.props.item.data.owner}:"{this.props.item.data.description}"</Text>
                 {
                     !this.state.liked ? // el ! es para decir si no esta likeado, podes likear y si esta likeado podes deslikear
                 <TouchableOpacity onPress={() => this.onLike()}>  
-                <Text>
-                    Like
+                <Text style={styles.like}>
+                    I like this post
                 </Text>
                 </TouchableOpacity>
                 :
                 <TouchableOpacity onPress={() => this.onDisLike()}>  
-                <Text>
-                    Dislike
+                <Text style={styles.dislike}>
+                    I dont't like it anymore
                 </Text>
                 </TouchableOpacity>
                 }
-                <TouchableOpacity onPress={()=>{this.showModal()}}>
+                <Text style={styles.ago}>{Math.ceil(((Date.now() - this.props.item.data.createdAt)/1000/3600)-1)} hours ago</Text>
+                <TouchableOpacity style={styles.comments} onPress={()=>{this.showModal()}}>
                     <Text style={styles.color}>
-                        Ver comentarios
+                        See comments
                     </Text>
                 </TouchableOpacity>
                 {
@@ -189,6 +190,11 @@ const styles = StyleSheet.create({
         height: 200,
     
     },
+    view:{
+        width:"370px",
+        alignSelf:"center",
+        marginTop:"20px",
+    },
     container:{
         flex: 1,
         justifyContent: 'center',
@@ -219,8 +225,33 @@ const styles = StyleSheet.create({
         color: "blue",
     },
     preview: {
-        width: 90,
-        height: 70
+        width:"370px",
+        height:"370px",
+        alignSelf:"center"
     },
-
+    like:{
+        fontSize:"14px",
+        color:"#35E900"
+    },
+    dislike:{
+        fontSize:"14px",
+        color:"#999999"
+    },
+    likes:{
+        fontSize:"14px"
+    },
+    datos:{
+        fontSize:"17px"
+    },
+    datosowner:{
+        fontSize:"13px",
+        alignSelf:"center"
+    },
+    ago:{
+        fontSize:"13px",
+        alignSelf:"flex-end"
+    },
+    comments:{
+        alignSelf:"center"
+    }
 })

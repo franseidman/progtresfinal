@@ -74,15 +74,16 @@ export default class MyCamera extends React.Component{
             source={{uri: this.state.photo}}
             />
             <View style={styles.btnContainer}>
+                <Text>Do you like the photo? Post it! If not, try taking another one...</Text>
                 <TouchableOpacity
                     style={styles.reject}
                     onPress={() => this.onReject()}
-                ><Text style={styles.text}>Cancelar</Text></TouchableOpacity>
+                ><Text style={styles.text}>X</Text></TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.accept}
                     onPress={() => this.uploadImage()}
-                ><Text style={styles.text}>Subir</Text>
+                ><Text style={styles.text}>Continue...</Text>
                 </TouchableOpacity>
             </View>
             </>
@@ -111,11 +112,14 @@ export default class MyCamera extends React.Component{
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '100%'
+        width: '100%',
+        borderRadius: "5px",
+        backgroundColor: "#FFFFD0",
     },
     camera: {
         flex: 1,
-        width: '100%',
+        width: '50%',
+        alignSelf:"center"
     },
     buttonContainer: {
         width: '100%',
@@ -127,11 +131,12 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        width: 124,
-        height: '100%',
-        borderWidth: 5,
-        borderColor: 'white',
+        width: "60px",
+        height: '60px',
+        borderWidth: 2,
+        borderColor: '#FFFFD0',
         borderRadius: 100,
+        marginTop: "100px",
         backgroundColor: 'rgba(0,0,0,0.1)'
     },
     text: {
@@ -144,27 +149,31 @@ export const styles = StyleSheet.create({
         height: '90%',
     },
     preview: {
-        width: '100%',
-        flex: 6
+        width: '50%',
+        marginTop:"10px",
+        flex: 6,
+        alignSelf:"center",
+        borderRadius:"5px"
     },
     btnContainer: {
         flex: 1,
-        backgroundColor: '#000020',
+        backgroundColor: 'transparent',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        width: '100%',
+        width: '50%',
+        alignSelf:"center"
     },
     accept: {
         width: 100,
         height: 50,
-        backgroundColor: '#7F6DF3',
+        backgroundColor: '#95FF80',
         borderRadius: 50
     },
     reject: {
         width: 100,
         height: 50,
-        backgroundColor: '#FF392B',
+        backgroundColor: '#FF8080',
         borderRadius: 50
     }
 })

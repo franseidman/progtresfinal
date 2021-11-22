@@ -32,12 +32,13 @@ export default class Home extends Component {
     render(){
         console.log(this.state.posts);
         return(
-            <View>
-                <Text> Home </Text>
+            <View style = {styles.view}>
                 <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
                     <Text style = {styles.text}> Logout </Text>
                 </TouchableOpacity>
+                <Text style={styles.welcome}>Welcome, scroll down to see what people is posting about...</Text>
                 <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
+                style={styles.post}
                 data = {this.state.posts}
                 keyExtractor = {post => post.id.toString()} //identificador unico.
                 renderItem = { ({item}) => {return <Post item = {item}></Post> } //Datos de los posteos. Los pasamos por props
@@ -48,10 +49,15 @@ export default class Home extends Component {
     }
 }
 
+
 const styles = StyleSheet.create({
+    
     container: {
         flex: 1,
         alignItems: 'center'
+    },
+    view:{
+        backgroundColor: "#FFFFD0",
     },
     field: {
         width: '80%',
@@ -61,11 +67,25 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     button: {
-        width: '30%',
-        backgroundColor: "#0F00FF",
+        alignSelf: "flex-end",
+        width: '7%',
+        backgroundColor: "#FFFFD0",
+        marginRight: "30px",
+        height: "40px"
     },
     text: {
         color: '#FFA400',
-        fontSize: 20
-    }
+        fontSize: 20,
+        textAlign: "center",
+        marginTop: "5px"
+    },
+    welcome:{
+        alignSelf: "center",
+        fontWeight: "100",
+        fontSize: "30px"
+    },
+    post:{
+        width:"100%",
+    },
+    
 })
