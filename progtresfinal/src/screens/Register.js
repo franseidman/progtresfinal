@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, TouchableOpacity, View, StyleSheet} from 'react-native';
+import { Text, TextInput, TouchableOpacity, View, StyleSheet, Alert} from 'react-native';
 import { auth } from '../firebase/config';
 
 export default class Register extends Component {
@@ -18,6 +18,7 @@ export default class Register extends Component {
         }
         else {
             console.log("Completar los campos!")
+            alert("Completar los campos")
         }
     }
 

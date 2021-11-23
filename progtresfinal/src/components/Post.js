@@ -39,7 +39,7 @@ export default class Post extends Component {
     onComment(){
 
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)
-        const comment={user: auth.currentUser.email, comment: this.state.comment, fecha: new Date()}
+        const comment={user: auth.currentUser.email, comment: this.state.comment, fecha: new Date().toLocaleString()}
         console.log(comment)
         posteoActualizar.update({ 
             comments: firebase.firestore.FieldValue.arrayUnion(comment)
@@ -153,14 +153,14 @@ export default class Post extends Component {
                                 <TouchableOpacity style={styles.closeModal} onPress={()=>{this.closeModal()}}>
                                         <Text style={styles.modalText} >X</Text>
                                 </TouchableOpacity>
-                                <Text>
+                                
                                 <Text>Cantidad de comentarios: {this.hayComentario()}</Text>
                                 <FlatList 
                                 data={this.props.item.data.comments}//recibe un array por props que es lo que va a recorrer
                                 keyExtractor = {(comment, id) => id.toString()} // el primero es el elemento y el segundo es la posicion en el array (posicion ocupa)
                                 renderItem = { ({item}) => <Text>{item.comment} {item.fecha} {item.user}</Text> } //renderizamos los comments
                                 /> 
-                                </Text>
+                                
                                 <TextInput
                                 style={styles.field}
                                 keyboardType='default'
