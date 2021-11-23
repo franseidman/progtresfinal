@@ -52,9 +52,9 @@ export default class Profile extends Component {
                 <>
                     <Post item = {item}></Post>
                 {
-                    <TouchableOpacity onPress={() => this.delete(item.id)}>
-                        <Text>
-                            Borrar
+                    <TouchableOpacity style={styles.borrar} onPress={() => this.delete(item.id)}>
+                        <Text style={styles.borrar2}>
+                            Delete post
                         </Text>
                     </TouchableOpacity>
                 }
@@ -71,6 +71,17 @@ const styles = StyleSheet.create({
     button: {
         width: '30%',
         backgroundColor: "#0F00FF",
+    },
+    borrar:{
+        width:"9%",
+        backgroundColor:"#FF5656",
+        alignSelf:"center",
+        marginTop:"10px",
+        borderRadius:"4px",
+        marginBottom:"30px"
+    },
+    borrar2:{
+        alignSelf:"center",
     },
     view:{
         backgroundColor: "#FFFFD0",

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     footer1:{
         alignSelf: "center",
-        marginTop: 30,
+        marginTop: 100,
     },
     footer2:{
         alignSelf: "center",

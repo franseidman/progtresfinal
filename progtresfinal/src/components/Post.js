@@ -154,17 +154,18 @@ export default class Post extends Component {
                                         <Text style={styles.modalText} >X</Text>
                                 </TouchableOpacity>
                                 
-                                <Text>Cantidad de comentarios: {this.hayComentario()}</Text>
+                                <Text style={styles.comentarios}>{this.hayComentario()} comments</Text>
                                 <FlatList 
+                                style={styles.comm}
                                 data={this.props.item.data.comments}//recibe un array por props que es lo que va a recorrer
                                 keyExtractor = {(comment, id) => id.toString()} // el primero es el elemento y el segundo es la posicion en el array (posicion ocupa)
-                                renderItem = { ({item}) => <Text>{item.comment} {item.fecha} {item.user}</Text> } //renderizamos los comments
+                                renderItem = { ({item}) => <Text>"{item.comment}" by {item.user} {item.fecha}</Text> } //renderizamos los comments
                                 /> 
                                 
                                 <TextInput
                                 style={styles.field}
                                 keyboardType='default'
-                                placeholder="Comentar..."
+                                placeholder=" Comentar..."
                                 multiline={true} // para poder hacer un comentario mas grande
                                 numberOfLines = {4}
                                 onChangeText={text => this.setState({ comment: text })}//para ir actualizando el estado del comment
@@ -188,12 +189,31 @@ export default class Post extends Component {
 const styles = StyleSheet.create({
     image: {
         height: 200,
-    
+    },
+    field:{
+        marginTop: "15px",
+        width:"90%",
+        alignSelf:"center",
+        backgroundColor:"#D1D1D1",
+        borderRadius:"5px",
+    },
+    button:{
+        marginTop: "5px",
+        width:"40%",
+        alignSelf:"center",
+        backgroundColor:"#D1D1D1",
+        borderRadius:"5px",
+        marginBottom:"4px"
+    },
+    text:{
+        alignSelf:"center"
     },
     view:{
-        width:"370px",
+        width:"390px",
         alignSelf:"center",
         marginTop:"20px",
+        backgroundColor:"#e9eeee",
+        borderRadius:"2px"
     },
     container:{
         flex: 1,
@@ -225,28 +245,36 @@ const styles = StyleSheet.create({
     },
     modal: {
         border: 'none',
+        alignSelf:"center",
+        marginBottom:"10px"
     },
     color: {
         color: "blue",
+        marginBottom:"5px"
     },
     preview: {
         width:"370px",
         height:"370px",
-        alignSelf:"center"
+        alignSelf:"center",
+        marginTop:"10px"
     },
     like:{
         fontSize:"14px",
-        color:"#35E900"
+        color:"#35E900",
+        marginLeft:"10px"
     },
     dislike:{
         fontSize:"14px",
-        color:"#999999"
+        color:"#999999",
+        marginLeft:"10px"
     },
     likes:{
-        fontSize:"14px"
+        fontSize:"14px",
+        marginLeft:"10px"
     },
     datos:{
-        fontSize:"17px"
+        fontSize:"17px",
+        marginLeft:"10px"
     },
     datosowner:{
         fontSize:"13px",
@@ -254,9 +282,17 @@ const styles = StyleSheet.create({
     },
     ago:{
         fontSize:"13px",
-        alignSelf:"flex-end"
+        alignSelf:"flex-end",
+        marginRight:"10px"
+    },
+    comentarios:{
+        alignSelf:"center",
+        marginBottom:"4px"
     },
     comments:{
         alignSelf:"center"
+    },
+    comm:{
+        marginLeft:"5px"
     }
 })
