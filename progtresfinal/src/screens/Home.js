@@ -43,7 +43,11 @@ export default class Home extends Component {
                 keyExtractor = {post => post.id.toString()} //identificador unico.
                 renderItem = { ({item}) => {return <Post item = {item}></Post> } //Datos de los posteos. Los pasamos por props
                 }
-                /> 
+                />
+                
+                <Text style={styles.footer1}>Mateo Pautasso Cavanagh - Francisco Manuel Seidman - Lucas Ruiz Coines</Text> 
+                <Text style={styles.footer2}>Copyright © 2021 SoundWaves⁺. All rights reserved.</Text>
+                
             </View> //por cada posteo que encuentre devuelve un componente que se llame post que recibe las props de ese item
         )
     }
@@ -87,5 +91,12 @@ const styles = StyleSheet.create({
     post:{
         width:"100%",
     },
-    
+    footer1:{
+        alignSelf: "center",
+        marginTop: 30,
+    },
+    footer2:{
+        alignSelf: "center",
+        marginBottom: 30
+    }
 })
