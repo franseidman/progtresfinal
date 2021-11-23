@@ -203,19 +203,24 @@ const styles = StyleSheet.create({
     
     closeModal:{
         alignSelf: 'flex-end',
-        padding: 10,
-        backgroundColor: '#dc3545',
-        marginTop:2,
-        marginBotom: 10,
-        borderRadius: 4,
+        padding:"6px",
+        height:"20px",
+        width:"20px",
+        marginTop:"10px",
+        backgroundColor: '#FF8686',
+        marginRight:"10px",
+        borderRadius: 100,
     },
 
     modalText:{
         fontWeight: 'bold',
         color:'#fff',
+        alignSelf:"center",
+        marginTop:"-6px"
     },
     modalView:{
-        backgroundColor: 'green',
+        backgroundColor: "#F4F4F4",
+        width:"370px",
         borderRadius: 10,
     },
     modal: {
