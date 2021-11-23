@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, FlatList, Image} from 'react-native';
 import Post from '../components/Post';
 import { db } from '../firebase/config';
 
@@ -33,6 +33,10 @@ export default class Home extends Component {
         console.log(this.state.posts);
         return(
             <View style = {styles.view}>
+                <Image  
+                style={styles.preview}
+                source={require('../../assets/logocool.png')}
+                />
                 <TouchableOpacity style = {styles.button} onPress={() => this.props.handleLogout()}>
                     <Text style = {styles.text}> Logout </Text>
                 </TouchableOpacity>
@@ -62,6 +66,15 @@ const styles = StyleSheet.create({
     },
     view:{
         backgroundColor: "#FFFFD0",
+    },
+    image: {
+        height: 50,
+    },
+    preview: {
+        width:"100px",
+        height:"100px",
+        alignSelf:"center",
+        marginTop:"10px"
     },
     field: {
         width: '80%',
