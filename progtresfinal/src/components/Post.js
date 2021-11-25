@@ -51,11 +51,11 @@ export default class Post extends Component {
         })
     }
 
-    // funcion likear (si no esta likeado pushea al array de likes utilizando el metodo de firebase)
+    
     onLike(){ 
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)
         posteoActualizar.update({ 
-            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) //especie de pusheo al array de likes. pusheamos el username del usuario que le dio el like
+            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
         })
         .then(()=> {
             this.setState({
@@ -64,8 +64,7 @@ export default class Post extends Component {
             })
         })
     }
-    //Obtenemos el posteo, este se actualiza para luego sumar el like. ArrayUnion 
-    //Commnets guardar obj. lit. (Mismo procedimiento)
+    
     onDisLike(){
         const posteoActualizar = db.collection("posts").doc(this.props.item.id)
         posteoActualizar.update({ 
@@ -110,7 +109,7 @@ export default class Post extends Component {
         console.log("ola", this.props.item);
     
         return(
-            //FlatList para hacer ver comments o no ver comments. Y hacer hace cuanto se subió.
+            
             <View style={styles.view}>
                 <Image  
                 style={styles.preview}
@@ -120,7 +119,7 @@ export default class Post extends Component {
                 <Text style={styles.likes}>{this.state.likes} likes</Text>
                 <Text style={styles.datos}>{this.props.item.data.owner}:"{this.props.item.data.description}"</Text>
                 {
-                    !this.state.liked ? // el ! es para decir si no esta likeado, podes likear y si esta likeado podes deslikear
+                    !this.state.liked ? 
                 <TouchableOpacity onPress={() => this.onLike()}>  
                 <Text style={styles.like}>
                     I like this post
@@ -157,19 +156,19 @@ export default class Post extends Component {
                                 <Text style={styles.comentarios}>{this.hayComentario()} comments</Text>
                                 <FlatList 
                                 style={styles.comm}
-                                data={this.props.item.data.comments}//recibe un array por props que es lo que va a recorrer
-                                keyExtractor = {(comment, id) => id.toString()} // el primero es el elemento y el segundo es la posicion en el array (posicion ocupa)
-                                renderItem = { ({item}) => <Text>"{item.comment}" by {item.user} {item.fecha}</Text> } //renderizamos los comments
+                                data={this.props.item.data.comments}
+                                keyExtractor = {(comment, id) => id.toString()} 
+                                renderItem = { ({item}) => <Text>"{item.comment}" by {item.user} {item.fecha}</Text> } 
                                 /> 
                                 
                                 <TextInput
                                 style={styles.field}
                                 keyboardType='default'
                                 placeholder=" Comentar..."
-                                multiline={true} // para poder hacer un comentario mas grande
+                                multiline={true} 
                                 numberOfLines = {4}
-                                onChangeText={text => this.setState({ comment: text })}//para ir actualizando el estado del comment
-                                value = {this.state.comment} //para limpiar el comentario
+                                onChangeText={text => this.setState({ comment: text })}
+                                value = {this.state.comment} 
                                 />
                                 <TouchableOpacity style = {styles.button} onPress={() => this.onComment()}>
                                     <Text style = {styles.text}> Comentar </Text>

@@ -12,13 +12,13 @@ export default class Profile extends Component {
     }
 
     componentDidMount(){
-        db.collection('posts').where("email","==", auth.currentUser.email).orderBy("createdAt", "desc").onSnapshot( //onSnapshot detecta cada cambio en nuestra coleccion de posteos y lo ejecuta (actualiza) nuevamente. Es un "observador de nuestra coleccion"
+        db.collection('posts').where("email","==", auth.currentUser.email).orderBy("createdAt", "desc").onSnapshot( 
             docs => {
-                let postsAux = [] //Variable auxiliar
+                let postsAux = [] 
                 docs.forEach( doc => {
                     postsAux.push({
                         id: doc.id,
-                        data: doc.data() //data extrae todos los datos de ese documento. por cada uno de los posteos
+                        data: doc.data() 
                     })
                 })
                 this.setState({
@@ -45,9 +45,9 @@ export default class Profile extends Component {
                 <Text style={styles.detail}>{auth.currentUser.email} </Text>
                 <Text style={styles.detail}>{this.state.posts.length} posts</Text>
                 
-                <FlatList //usamos flatlist para dejar un posteo abajo del otro y poder scrollear. renderiza a medida que se scrollea. optimiza la app "lazy loader"
+                <FlatList 
                 data = {this.state.posts}
-                keyExtractor = {post => post.id.toString()} //identificador unico.
+                keyExtractor = {post => post.id.toString()} 
                 renderItem = { ({item}) => 
                 <>
                     <Post item = {item}></Post>
